@@ -172,6 +172,7 @@ methodDeclaration
 
 implementationDefinitionList
     : (functionDefinition
+    | macro
     | declaration
     | classMethodDefinition
     | instanceMethodDefinition
@@ -556,7 +557,7 @@ pointer
     ;
 
 macro
-    : identifier (LP primaryExpression (',' primaryExpression)* RP)?
+    : identifier (LP (primaryExpression (',' primaryExpression)*)? RP)?
     ;
 
 arrayInitializer
@@ -701,8 +702,9 @@ expression
     | expression op=AND expression
     | expression op=OR expression
 
-    | expression QUESTION trueExpression=expression? COLON falseExpression=expression
     | LP compoundStatement RP
+
+    | expression QUESTION trueExpression=expression? COLON falseExpression=expression
 
     | unaryExpression assignmentOperator assignmentExpression=expression
     ;
